@@ -1,0 +1,39 @@
+tests for class BaseGeometry
+============================
+
+testing interger_validator
+--------------------------
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> base = BaseGeometry()
+>>> base.integer_validator("size", 9)
+
+>>> base.integer_validator("size", "j")
+Traceback (most recent call last):
+TypeError: size must be an integer
+>>> base.integer_validator("size", -5)
+Traceback (most recent call last):
+ValueError: size must be greater than 0
+>>> base.integer_validator("size", True)
+Traceback (most recent call last):
+TypeError: size must be an integer
+>>> base.integer_validator("size", (2,))
+Traceback (most recent call last):
+TypeError: size must be an integer
+>>> base.integer_validator("size", [6])
+Traceback (most recent call last):
+TypeError: size must be an integer
+>>> base.integer_validator("size", {4, 6})
+Traceback (most recent call last):
+TypeError: size must be an integer
+>>> base.integer_validator("size", 0)
+Traceback (most recent call last):
+ValueError: size must be greater than 0
+>>> base.integer_validator("size", None)
+Traceback (most recent call last):
+TypeError: size must be an integer
+
+testing area()
+--------------
+>>> base.area()
+Traceback (most recent call last):
+Exception: area() is not implemented
