@@ -1,6 +1,6 @@
 test file for MyList()
 ---------------------
-MyList = __import__('1-my_list').MyList
+>>> MyList = __import__('1-my_list').MyList
 >>> newlist = []
 >>> my_list = MyList(newlist)
 >>> my_list.append(-9)
