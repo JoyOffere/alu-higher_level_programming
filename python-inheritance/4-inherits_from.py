@@ -1,15 +1,10 @@
 #!/usr/bin/python3
-# 4-inherits_from.py
-"""This is a python module
-thats checks if a class is
-a sub class of another class
-"""
+inherits_from = __import__('4-inherits_from').inherits_from
 
-
-def inherits_from(obj, a_class):
-    """The function checking
-    for the inheritance on an object
-    """
-    if issubclass(obj.__class__, a_class):
-        return True
-    return False
+a = True
+if inherits_from(a, int):
+    print("{} inherited from class {}".format(a, int.__name__))
+if inherits_from(a, bool):
+    print("{} inherited from class {}".format(a, bool.__name__))
+if inherits_from(a, object):
+    print("{} inherited from class {}".format(a, object.__name__))
