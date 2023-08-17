@@ -1,73 +1,75 @@
 #!/usr/bin/python3
-"""
-Tests for base class
-"""
+"""Test case for Base class"""
+
+import os
 import unittest
+from models.rectangle import Rectangle
 from models.base import Base
-import json
+from models.square import Square
 
 
-class BaseClassTest(unittest.TestCase):
-    """
-    doc
-    """
+class TestBase(unittest.TestCase):
+    """Test class for base"""
 
-    def test_no_arg_base(self):
-        """
-        test id
-        """
+    def test_id(self):
+        """Test id"""
         b1 = Base()
-        b2 = Base()
-        self.assertEqual(b1.id, b2.id - 1)
-
-    def test_increment(self):
-        """
-        is id increased
-        """
-        b1 = Base()
-        b2 = Base()
-        b3 = Base()
-        self.assertEqual(b3.id, b2.id + 1)
-
-    def test_id_args(self):
-        """
-        is id set to value
-        """
-        b1 = Base(10)
-        self.assertEqual(b1.id, 10)
-
-    def test_id_None(self):
-        """
-        id id set automatically
-        """
-        b1 = Base(None)
         self.assertEqual(b1.id, 1)
+        b2 = Base()
+        self.assertEqual(b2.id, 2)
+        b3 = Base(89)
+        self.assertEqual(b3.id, 89)
 
-
-class Test_methods(unittest.TestCase):
-    """
-    testing the to_json_string method
-    """
     def test_to_json_string(self):
-        """
-        doc
-        """
-        b = Base()
-        self.assertEqual(b.to_json_string(None), ("[]"))
-        self.assertEqual(b.to_json_string([]), ("[]"))
-        self.assertEqual((b.to_json_string([{'id': 24}])), json.dumps([{"id": 24}]))
+        """test for to_json_string"""
+        self.assertEqual(Base.to_json_string(None), "[]")
+        self.assertEqual(Base.to_json_string([]), "[]")
+        self.assertEqual(Base.to_json_string([{'id': 12}]), '[{"id": 12}]')
+        self.assertEqual(type(Base.to_json_string([{'id': 12}])), str)
 
     def test_from_json_string(self):
-        """
-        doc
-        """
-        b = Base()
-        self.assertEqual(b.from_json_string(None), [])
-        a = ""
-        self.assertEqual(b.from_json_string(a), [])
-        c = json.loads('[{"id": 24}]')
-        self.assertEqual(b.from_json_string('[{"id": 24}]'), c)
+        """test for from_json_string"""
+        self.assertEqual(Base.from_json_string(None), [])
+        self.assertEqual(Base.from_json_string("[]"), [])
+        self.assertEqual(Base.from_json_string('[{"id": 89}]'), [{'id': 89}])
+        self.assertEqual(type(Base.from_json_string('[{"id": 12}]')), list)
 
+    def test_save_to_file(self):
+        """test for save to file"""
+        Base._Base__nb_objects = 0
 
-if __name__ == "__main__":
+        Square.save_to_file(None)
+        self.assertTrue(os.path.isfile("Square.json"))
+        with open("Square.json", "r") as f:
+            self.assertEqual(f.read(), "[]")
+
+        Square.save_to_file([])
+        with open("Square.json", "r") as f:
+            self.assertEqual(f.read(), "[]")
+            self.assertEqual(type(f.read()), str)
+
+        Square.save_to_file([Square(1)])
+        with open("Square.json", "r") as f:
+            self.assertEqual(f.read(), 
+            '[{"id": 1, "size": 1, "x": 0, "y": 0}]')
+            Base._Base__nb_objects = 0
+
+        Rectangle.save_to_file(None)
+        self.assertTrue(os.path.isfile("Rectangle.json"))
+        with open("Rectangle.json", "r") as f:
+            self.assertEqual(f.read(), "[]")
+
+        Rectangle.save_to_file([])
+        with open("Rectangle.json", "r") as f:
+            self.assertEqual(f.read(), "[]")
+            self.assertEqual(type(f.read()), str)
+
+        os.remove("Rectangle.json")
+        Rectangle.save_to_file([Rectangle(1, 2)])
+        with open("Rectangle.json", "r") as f:
+            self.assertEqual(f.read(), 
+                             '[{"id": 1, "width": 1, '
+                             '"height": 2, "x": 0, "y": 0}]')
+
+if __name__ == '__main__':
     unittest.main()
