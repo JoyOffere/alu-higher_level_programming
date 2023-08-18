@@ -68,8 +68,7 @@ class TestBase(unittest.TestCase):
         Rectangle.save_to_file([Rectangle(1, 2)])
         with open("Rectangle.json", "r") as f:
             self.assertEqual(f.read(), 
-                             '[{"id": 1, "width": 1, '
-                             '"height": 2, "x": 0, "y": 0}]')
+                             '[{"x": 0, "y": 0, "width": 1, "height": 2, "id": 1}]')
 
 if __name__ == '__main__':
     unittest.main()

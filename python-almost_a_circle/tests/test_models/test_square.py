@@ -67,8 +67,8 @@ class TestSquare(unittest.TestCase):
         self.assertNotEqual(r.id, r.update(**{"id": 89}))
         self.assertNotEqual(r.width, r.update(**{"id": 89, "size": 3}))
         #self.assertNotEqual(r.height, r.update(**{"id": 89, "size": 4, "height": 21}))
-        self.assertNotEqual(r.x, r.update(**{"id": 89, "width": 4, "x": 3}))
-        self.assertNotEqual(r.y, r.update(**{"id": 89, "width": 4, "x": 3, "y": 6}))
+        self.assertNotEqual(r.x, r.update(**{"id": 89, "size": 4, "x": 3}))
+        self.assertNotEqual(r.y, r.update(**{"id": 89, "size": 4, "x": 3, "y": 6}))
 
     def test_to_dict(self):
         """
