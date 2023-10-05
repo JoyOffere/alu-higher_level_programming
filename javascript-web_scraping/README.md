@@ -1,0 +1,1 @@
+This project will I will be expressing the JavaScript programming and how amazing it is while manipulating JSON data
